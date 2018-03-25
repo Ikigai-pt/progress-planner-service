@@ -1,8 +1,8 @@
 import express from 'express';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import bodyParser from 'body-parser';
-import schema from './data/schema';
-import Seed from './data/seed';
+import schema from './src/graphql/schema';
+import Seed from './src/graphql/connector';
 
 const GRAPHQL_PORT = 3000;
 

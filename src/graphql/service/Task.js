@@ -1,15 +1,4 @@
-import {Task} from '../model/TaskSchema';
-
-// const exampleTask = {
-//   title: 'Go to Gym',
-//   description: ' Fitness',
-//   category: 1 ,
-//   tags: ['fitness', 'health'],
-//   type: 'recurring',
-//   frequency: 2,
-//   startDate: new Date(),
-//   endDate: new Date(),
-// }
+import {Task} from '../../models/TaskSchema';
 
 const createTask = (newTask) => {
   const task = Task(newTask);

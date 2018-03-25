@@ -1,10 +1,4 @@
-import {TaskLedger} from '../model/TaskSchema';
-
-// const exampleTaskLedger = {
-//   taskId: 1,
-//   status: 'COMPLETE',
-//   date: new Date(),
-// }
+import {TaskLedger} from '../../models/TaskSchema';
 
 const addToTaskLedger = (newTask) => {
   const taskLedger = TaskLedger(newTask);
@@ -19,7 +13,5 @@ const getTaskLedgerByDate = (filterDate) => {
 const getTaskLedgerByRange = (startDate, endDate) => {
   return TaskLedger.find({date: startDate})
 }
-
-// addToTaskLedger(exampleTaskLedger).then((data)=> console.log(JSON.stringify(data)))
 
 export { addToTaskLedger, getTaskLedgerByDate }

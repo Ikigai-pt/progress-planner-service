@@ -30,7 +30,8 @@
     ]
   },
   "scripts": {
-    "start": "nodemon ./server.js --exec babel-node"
+    "start": "nodemon ./server.js --exec babel-node",
+    "seed": "nodemon ./src/graphql/seed.js --exec babel-node"
   },
   "repository": {
     "type": "git",
