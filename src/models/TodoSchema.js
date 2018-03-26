@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const TodoSchema = new Schema({
   title: String,
   userId: Number,
-  category: Number,
+  categoryId: String,
   tags: [String],
   priority: {type: String, enum: ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'], default: 'MEDIUM'},
   deadLine: Date,
@@ -14,14 +14,15 @@ const TodoSchema = new Schema({
 
 const Todo = mongoose.model('Todo', TodoSchema);
 
-const TodoLedgerSchema = new Schema({
+const todoLedgerSchema = new Schema({
   todoId: {type: Schema.Types.ObjectId, ref: 'Todo'},
+  userId: {type: Number, default: 1},
   status: String,
   date: Date,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
 
-const TodoLedger = mongoose.model('TodoLedger', TodoLedgerSchema);
+const TodoLedger = mongoose.model('TodoLedger', todoLedgerSchema);
 
 export { Todo, TodoLedger }

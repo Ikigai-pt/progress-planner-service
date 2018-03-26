@@ -12,3 +12,7 @@ yarn start
 
 Then open [http://localhost:3000/graphiql](http://localhost:3000/graphiql)
 
+### Organize graphql types & resolvers
+- merge-graphql-schemas  [https://github.com/okgrow/merge-graphql-schemas]
+- artemis-server [https://github.com/aarohmankad/artemis-server]
+

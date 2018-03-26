@@ -1,7 +1,29 @@
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import resolvers from './resolver';
+import { taskType, taskQueries } from './queries/task';
+import { categoryType, categoryQueries } from './queries/category';
+import { tagType, tagQueries } from './queries/tag';
+import { frequencyType, frequencyQueries } from './queries/frequency';
 
 const typeDefs = `
+# declare custom scalars
+ scalar Date
+
+ type Query {
+  ${taskQueries}
+  ${categoryQueries}
+  ${tagQueries}
+  ${frequencyQueries}
+ }
+
+ ${taskType}
+ ${frequencyType}
+ ${tagType}
+ ${categoryType}
+
+`;
+
+const typeDefsOld = `
   type Query {
     allTasks: [Tasks]
   }
@@ -73,6 +95,8 @@ const typeDefs = `
 //     saturday: Boolean,
 //     sunday: Boolean
 //   }
+
+console.log(typeDefs)
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 export default schema;

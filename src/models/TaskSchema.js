@@ -21,6 +21,7 @@ const Task = mongoose.model('Task', TaskSchema);
 
 const TaskLedgerSchema = new Schema({
   taskId: {type: Schema.Types.ObjectId, ref: 'Task'},
+  userId: {type: Number, default: 1},
   status: String,
   date: Date,
   createdAt: { type: Date, default: Date.now },

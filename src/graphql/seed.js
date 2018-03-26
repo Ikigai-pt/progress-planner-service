@@ -2,12 +2,26 @@ import casual from 'casual';
 import Moment from 'moment';
 import _ from 'lodash';
 import Mongoose from 'mongoose';
-import { createCategory } from './service/Category';
-import { createTag} from './service/Tag';
-import { createFrequency } from './service/Frequency';
-import { createGoal } from './service/Goal';
-import { createTask } from './service/Task';
-import { addToTaskLedger } from './service/TaskLedger';
+import {
+  createCategory,
+  createTag,
+  createFrequency,
+  createGoal,
+  createTask,
+  createHabit,
+  createTodo,
+  addToTaskLedger,
+  addToTodoLedger,
+  addToHabitLedger
+} from './service';
+// import { createCategory } from './service/Category';
+// import { createTag} from './service/Tag';
+// import { createFrequency } from './service/Frequency';
+// import { createGoal } from './service/Goal';
+// import { createTask } from './service/Task';
+// import { createHabit} from './service/Habit';
+// import { createTodo} from './service/Todo';
+// import { addToTaskLedger } from './service/TaskLedger';
 
 Mongoose.Promise = global.Promise;
 
@@ -19,11 +33,11 @@ const mongo = Mongoose.connect('mongodb://localhost/progressPlanner', () =>{
     }, 1000);
 
   setTimeout(() =>{
-      generateTasks()
+      generateEntitySeedData()
     }, 1000);
 
   setTimeout(() =>{
-      generateTaskLedger()
+      generateLedgers()
     }, 1000);
 });
 
@@ -93,7 +107,7 @@ const generateGoals = () => {
   })
 }
 
-const generateTasks = () => {
+const generateEntitySeedData = () => {
 
   const TaskType = ['RECURRING', 'ONETIME'];
   const Priority = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
@@ -113,9 +127,38 @@ const generateTasks = () => {
       endDate: randomDate(),
     }).then((task)=> taskIds.push(task.id))
   })
+
+  _.times(10, () => {
+    createTodo({
+      title: casual.title,
+      userId: 1,
+      categoryId: casual.random_element(categoryIds),
+      tags: _.times(3,() => casual.random_element(tagIds)),
+      priority: casual.random_element(Priority),
+      deadLine: randomDate(),
+    }).then((todo)=> todoIds.push(todo.id))
+  })
+
+  _.times(10, () => {
+    createHabit({
+      title: casual.title,
+      description: casual.description,
+      userId: 1,
+      categoryId: casual.random_element(categoryIds),
+      tags: _.times(3,() => casual.random_element(tagIds)),
+      daysOfWeek: casual.random_element(freqIds),
+      // unit:
+      progress: casual.random_element(['INCREASE', 'DECREASE']),
+      goalId: casual.random_element(goalIds),
+      startDate: randomDate(),
+      endDate: randomDate(),
+      priority: casual.random_element(Priority),
+      deadLine: randomDate(),
+    }).then((habit)=> habitIds.push(habit.id))
+  })
 }
 
-const generateTaskLedger = () => {
+const generateLedgers = () => {
   const Status = ['COMPLETE', 'NOT_DONE'];
   const DateRange = genDatePlusMinus(new Date());
 
@@ -123,6 +166,23 @@ const generateTaskLedger = () => {
     addToTaskLedger({
       taskId: casual.random_element(taskIds),
       status: casual.random_element(Status),
+      date: casual.random_element(DateRange)
+    })
+  })
+
+  _.times(10, () => {
+    addToTodoLedger({
+      todoId: casual.random_element(todoIds),
+      status: casual.random_element(Status),
+      date: casual.random_element(DateRange)
+    })
+  })
+
+  _.times(10, () => {
+    addToHabitLedger({
+      habitId: casual.random_element(habitIds),
+      status: casual.random_element(Status),
+      //measurement
       date: casual.random_element(DateRange)
     })
   })

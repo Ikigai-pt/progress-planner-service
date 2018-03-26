@@ -1,3 +1,4 @@
+import Mongoose from 'mongoose';
 import {Category} from '../../models/CategorySchema';
 
 const createCategory = (category) => {
@@ -9,7 +10,7 @@ const getAllCategory = () => {
 }
 
 const getCategoryById = (id) => {
-  return Category.find({_id: id})
+  return Category.findOne({_id: Mongoose.mongo.ObjectId(id)})
 }
 
 export { createCategory, getAllCategory, getCategoryById }

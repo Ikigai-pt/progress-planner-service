@@ -1,0 +1,12 @@
+type Category {
+	id: String
+	title: String
+	description: String
+	createdAt: String
+	modifiedAt: String
+}
+
+type Query {
+	categoryById(id: String): Category
+	allCategories: [Category]
+}

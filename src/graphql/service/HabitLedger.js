@@ -1,15 +1,17 @@
-import {HabitLedger} from '../../models/HabitLedgerSchema';
+import {HabitLedger} from '../../models/HabitSchema';
 
-const createHabitLedger = (habitLedger) => {
-  return HabitLedger(habitLedger).save();
+const addToHabitLedger = (newHabit) => {
+  const taskLedger = HabitLedger(newHabit);
+  return taskLedger.save();
 }
 
-const getAllHabitLedger = () => {
-  return HabitLedger.find({})
+const getHabitLedgerByDate = (filterDate) => {
+  return HabitLedger.find({date: filterDate})
 }
 
-const getHabitLedgerById = (id) => {
-  return HabitLedger.find({_id: id})
+// TODO monogose how to filter between range
+const getHabitLedgerByRange = (startDate, endDate) => {
+  return HabitLedger.find({date: startDate})
 }
 
-export { createHabitLedger, getAllHabitLedger, getHabitLedgerById }
+export { addToHabitLedger, getHabitLedgerByDate }
