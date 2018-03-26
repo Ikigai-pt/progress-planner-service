@@ -14,14 +14,6 @@ import {
   addToTodoLedger,
   addToHabitLedger
 } from './service';
-// import { createCategory } from './service/Category';
-// import { createTag} from './service/Tag';
-// import { createFrequency } from './service/Frequency';
-// import { createGoal } from './service/Goal';
-// import { createTask } from './service/Task';
-// import { createHabit} from './service/Habit';
-// import { createTodo} from './service/Todo';
-// import { addToTaskLedger } from './service/TaskLedger';
 
 Mongoose.Promise = global.Promise;
 
