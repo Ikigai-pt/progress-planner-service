@@ -3,6 +3,7 @@ import {
   getAllCategory,
   getCategoryById,
   getTagById,
+  getGoalById,
   getFrequencyById,
   getAllTag,
   getAllFrequency,
@@ -36,11 +37,14 @@ const taskResolvers = {
       return getCategoryById(task.categoryId)
     },
     tags(task) {
-      return task.tags.forEach((tag) => getTagById(tag))
+      return task.tags.map((tag) => getTagById(tag))
     },
     daysOfWeek(task) {
       return getFrequencyById(task.daysOfWeek)
     },
+    goal(task) {
+      return getGoalById(task.goalId)
+    }
   }
 };
 

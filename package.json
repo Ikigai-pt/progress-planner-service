@@ -32,7 +32,7 @@
     ]
   },
   "scripts": {
-    "start": "nodemon ./server.js --exec babel-node",
+    "start": "npm run seed && nodemon ./server.js --exec babel-node",
     "seed": "nodemon ./src/graphql/seed.js --exec babel-node"
   },
   "repository": {

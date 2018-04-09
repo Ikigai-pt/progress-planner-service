@@ -1,0 +1,8 @@
+#namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: progressplannerns
+
+# kubectl apply -f namespace.yaml
+# kubectl get ns

@@ -1,3 +1,4 @@
+import Mongoose from 'mongoose';
 import {Frequency} from '../../models/FrequencySchema';
 
 const createFrequency = (frequency) => {
@@ -9,7 +10,7 @@ const getAllFrequency = () => {
 }
 
 const getFrequencyById = (id) => {
-  return Frequency.find({_id: id})
+  return Frequency.findOne({_id: Mongoose.mongo.ObjectId(id)})
 }
 
 export { createFrequency, getAllFrequency, getFrequencyById }

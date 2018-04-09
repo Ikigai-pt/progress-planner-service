@@ -1,0 +1,20 @@
+#gce-ssd-storageclass.yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: fast
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+
+#To apply resources to kubernetes, run
+# kubectl apply -f gce-ssd-storageclass.yml
+#To verify storageclass
+# kubectl get sc
+
+# Create disc for mongo db
+#For MainDB servers
+#gcloud compute disks create --size 10GB --type pd-ssd pd-ssd-disk-k8s-mongodb-daemonsl-10g-1 --zone us-west1-b
+#gcloud compute disks create --size 10GB --type pd-ssd pd-ssd-disk-k8s-mongodb-daemonsl-10g-2 --zone us-west1-b
+##For Config servers
+#gcloud compute disks create --size 5GB --type pd-ssd pd-ssd-disk-k8s-mongodb-daemonsl-5g-1

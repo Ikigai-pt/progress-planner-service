@@ -17,22 +17,6 @@ import {
 
 Mongoose.Promise = global.Promise;
 
-const mongo = Mongoose.connect('mongodb://localhost/progressPlanner', () =>{
-  Mongoose.connection.db.dropDatabase();
-  generateLookUpTables()
-  setTimeout(() =>{
-      generateGoals()
-    }, 1000);
-
-  setTimeout(() =>{
-      generateEntitySeedData()
-    }, 1000);
-
-  setTimeout(() =>{
-      generateLedgers()
-    }, 1000);
-});
-
 const categoryIds = [];
 const freqIds = [];
 const tagIds = [];
@@ -41,9 +25,19 @@ const taskIds = [];
 const todoIds = [];
 const habitIds = [];
 
+casual.seed(123);
+const mongo = Mongoose.connect("mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/progressPlanner", () =>{
+  Mongoose.connection.db.dropDatabase();
+  generateLookUpTables()
+  setTimeout(() =>{
+    generateGoals()
+    setTimeout(() => { generateEntitySeedData() }, 8000)
+    setTimeout(() => { generateLedgers() }, 1000)
+    }, 1000);
+});
+
 const generateLookUpTables = () => {
   // Generate seed data
-  casual.seed(123);
   const CategoryList = ['Health and fitness', 'Intellectual', 'Spritiual',
     'Relationships', 'Financial', 'Career', 'Parenting', 'Social' ];
   // Generate Categories
@@ -56,7 +50,7 @@ const generateLookUpTables = () => {
   })
 
   // Generate Frequencies
-  _.times(10, () => {
+   _.times(10, () => {
     createFrequency({
       monday: casual.boolean,
       tuesday: casual.boolean,
@@ -74,20 +68,9 @@ const generateLookUpTables = () => {
 
 }
 
-const randomDate = () => {
-  return Moment(new Date()).add(casual.integer(1, 12), 'M').format('YYYY-MM-DD')
-}
-
-const genDatePlusMinus = (date) => {
-  let counter = 7;
-  const dates = _.times(14, () => Moment(date).add(counter--, 'D').format('YYYY-MM-DD'))
-  console.log(dates)
-  return dates;
-}
-
 const generateGoals = () => {
   // Generate Goals
-  _.times(10, () => {
+   _.times(10, () => {
     createGoal({
       title: casual.title,
       description: casual.description,
@@ -115,6 +98,7 @@ const generateEntitySeedData = () => {
       daysOfWeek: casual.random_element(freqIds),
       tags: _.times(3,() => casual.random_element(tagIds)),
       categoryId: casual.random_element(categoryIds),
+      goalId: casual.random_element(goalIds),
       startDate: randomDate(),
       endDate: randomDate(),
     }).then((task)=> taskIds.push(task.id))
@@ -131,7 +115,7 @@ const generateEntitySeedData = () => {
     }).then((todo)=> todoIds.push(todo.id))
   })
 
-  _.times(10, () => {
+  return _.times(10, () => {
     createHabit({
       title: casual.title,
       description: casual.description,
@@ -179,3 +163,14 @@ const generateLedgers = () => {
     })
   })
 }
+
+const randomDate = () => {
+  return Moment(new Date()).add(casual.integer(1, 12), 'M').format('YYYY-MM-DD')
+}
+
+const genDatePlusMinus = (date) => {
+  let counter = 7;
+  const dates = _.times(14, () => Moment(date).add(counter--, 'D').format('YYYY-MM-DD'))
+  return dates;
+}
+

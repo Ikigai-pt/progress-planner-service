@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 const goalSchema = new Schema({
   title: String,
+  userId: Number,
   description: String,
-  startDate: Date,
-  endDate: Date,
+  startDate: { type: Date, default: Date.now },
+  endDate: { type: Date, default: Date.now },
   categoryId: String,
 })
 

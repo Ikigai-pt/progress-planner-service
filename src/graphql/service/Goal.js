@@ -1,7 +1,9 @@
+import Mongoose from 'mongoose';
 import { Goal } from '../../models/GoalSchema';
 
-const createGoal = (goal) => {
-  return Goal(goal).save();
+const createGoal = (newGoal) => {
+  const goal = Goal(newGoal);
+  return goal.save();
 }
 
 const getAllGoal = () => {
@@ -9,7 +11,7 @@ const getAllGoal = () => {
 }
 
 const getGoalById = (id) => {
-  return Goal.find({_id: id})
+  return Goal.findOne({_id: Mongoose.mongo.ObjectId(id)})
 }
 
 export { createGoal, getAllGoal, getGoalById }
