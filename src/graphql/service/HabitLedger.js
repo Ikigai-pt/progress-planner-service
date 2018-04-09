@@ -1,3 +1,4 @@
+import Mongoose from 'mongoose';
 import {HabitLedger} from '../../models/HabitSchema';
 
 const addToHabitLedger = (newHabit) => {

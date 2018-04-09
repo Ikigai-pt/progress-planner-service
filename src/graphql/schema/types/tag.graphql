@@ -1,8 +1,8 @@
 type Tag {
-	id: String!,
-	name: String!,
-	createdAt: String!,
-	modifiedAt: String!
+	id: String,
+	name: String,
+	createdAt: String,
+	modifiedAt: String
 }
 
 type Query {

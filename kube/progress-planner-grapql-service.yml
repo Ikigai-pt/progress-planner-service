@@ -1,0 +1,15 @@
+# progress-planner-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: progress-planner-graphql
+  labels:
+    name: progress-planner-graphql
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    name: progress-planner-graphql

@@ -1,3 +1,4 @@
+import Mongoose from 'mongoose';
 import {Todo} from '../../models/TodoSchema';
 
 const createTodo = (newTodo) => {
@@ -10,9 +11,9 @@ const getAllTodo = () => {
 }
 
 const getTodoById = (id) => {
-  return Todo.find({_id: id})
+  return Todo.findOne({_id: Mongoose.mongo.ObjectId(id)})
 }
 
 // createTodo(exampleTodo).then((data)=> console.log(JSON.stringify(data)))
 
-export { createTodo, getAllTodo }
+export { createTodo, getAllTodo, getTodoById }

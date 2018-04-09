@@ -1,3 +1,4 @@
+import Mongoose from 'mongoose';
 import {Tag} from '../../models/TagSchema';
 
 const createTag = (tag) => {
@@ -9,7 +10,7 @@ const getAllTag = () => {
 }
 
 const getTagById = (id) => {
-  return Tag.find({_id: id})
+  return Tag.findOne({_id: Mongoose.mongo.ObjectId(id)})
 }
 
 export { createTag, getAllTag, getTagById }

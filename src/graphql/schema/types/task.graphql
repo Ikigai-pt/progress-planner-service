@@ -5,6 +5,7 @@ type Task {
 	category: Category,
 	tags: [Tag],
 	type: String,
+	goal: Goal,
 	daysOfWeek: Frequency,
 	startDate: Date,
 	endDate: Date,

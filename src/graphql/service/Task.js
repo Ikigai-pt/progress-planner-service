@@ -1,3 +1,4 @@
+import Mongoose from 'mongoose';
 import {Task} from '../../models/TaskSchema';
 
 const createTask = (newTask) => {
@@ -10,9 +11,9 @@ const getAllTask = () => {
 }
 
 const getTaskById = (id) => {
-  return Task.find({_id: id})
+  return Task.find({_id: Mongoose.mongo.ObjectId(id)})
 }
 
 // createTask(exampleTask).then((data)=> console.log(JSON.stringify(data)))
 
-export { createTask, getAllTask }
+export { createTask, getAllTask, getTaskById }
