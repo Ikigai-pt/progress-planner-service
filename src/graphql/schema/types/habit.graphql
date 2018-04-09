@@ -1,0 +1,64 @@
+type Habit {
+  id: String!
+  title: String!
+  description: String
+  status: String
+  category: Category
+  tags: [Tag]
+  goal: Goal,
+  daysOfWeek: Frequency
+  progress: String
+  startDate: Date!
+  endDate: Date!
+  createdAt: Date!
+  modifiedAt: Date!
+}
+
+type Query {
+  allHabits: [Habit]
+  habitById(id: String!): Habit
+}
+
+input CreateHabitInput {
+  title: String!
+  description: String
+  categoryId: String!
+  tags: [String!]
+  goalId: String!
+  progress: String
+  daysOfWeekId: String!
+  startDate: Date!
+  endDate: Date!
+}
+
+input UpdateHabitInput {
+  id: String!
+  title: String
+  description: String
+  categoryId: String!
+  tags: [String!]
+  type: String
+  progress: String
+  goalId: String!
+  daysOfWeekId: String!
+  startDate: Date
+  endDate: Date
+}
+
+input UpdateHabitPrioirtyInput {
+  id: String!
+  priority: String!
+}
+
+input UpdateHabitStatusInput {
+  id: String!
+  status: String!
+}
+
+type Mutation {
+  createHabit(habit: CreateHabitInput!): Habit
+ # updateHabitStatus(habit: UpdateHabitStatusInput!): Habit
+ # updateHabitPriority(habit: UpdateHabitPrioirtyInput!): Habit
+ # updateHabit(habit: UpdateHabitInput): Habit
+}
+

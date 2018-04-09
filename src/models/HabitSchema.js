@@ -1,6 +1,6 @@
 
 import mongoose from 'mongoose';
-import { ENUM_STATUS } from './constants';
+import { ENUM_STATUS, ENUM_PROGRESS } from './constants';
 
 const Schema = mongoose.Schema;
 
@@ -16,9 +16,9 @@ const habitSchema = new Schema({
   categoryId: String,
   status: {type: String, enum: ENUM_STATUS, default: 'PLAN'},
   tags: [String],
-  daysOfWeek: String,
+  daysOfWeekId: String,
   unit: { ref: 'MeasuremntScale', type: String },
-  progress: { enum: ['INCREASE', 'DECREASE'] },
+  progress: {type: String, enum: ENUM_PROGRESS },
   goalId: String,
   startDate: Date,
   endDate: Date,
