@@ -1,12 +1,40 @@
 type Goal {
-  id: String,
-	title: String,
-	description: String,
-	category: Category,
-	startDate: Date,
-	endDate: Date,
-	}
+  id: String!
+  title: String!
+  description: String!
+  category: Category!
+  status: String
+  startDate: Date!
+  endDate: Date!
+  }
 
 type Query {
   allGoals: [Goal]
+  goalById(id: String!): Goal
+}
+
+input UpdateGoalInput{
+  id: String!
+  title: String
+  description: String
+  categoryId: String
+  startDate: Date
+  endDate: Date
+}
+
+input CreateGoalInput{
+  title: String!
+  description: String!
+  categoryId: String!
+  startDate: Date!
+  endDate: Date!
+}
+
+input UpdateGoalStatus{
+  id: String!
+  status: String!
+}
+
+type Mutation {
+  createGoal(goal: CreateGoalInput!): Goal
 }

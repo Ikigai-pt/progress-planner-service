@@ -1,5 +1,7 @@
 
 import mongoose from 'mongoose';
+import { ENUM_STATUS } from './constants';
+
 const Schema = mongoose.Schema;
 
 const measurementScale = new Schema({
@@ -12,6 +14,7 @@ const habitSchema = new Schema({
   description: String,
   userId: String,
   categoryId: String,
+  status: {type: String, enum: ENUM_STATUS, default: 'PLAN'},
   tags: [String],
   daysOfWeek: String,
   unit: { ref: 'MeasuremntScale', type: String },
@@ -36,6 +39,3 @@ const habitLedgerSchema = new Schema({
 export const Habit = mongoose.model('Habit', habitSchema);
 export const HabitLedger = mongoose.model('HabitLedger', habitLedgerSchema);
 
-// taskSchema.methods.validate = () => {
-//   this.title
-// }

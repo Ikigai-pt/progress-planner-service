@@ -1,6 +1,7 @@
 import casual from 'casual';
 import Moment from 'moment';
 import _ from 'lodash';
+import Aigle from 'aigle';
 import Mongoose from 'mongoose';
 import {
   createCategory,
@@ -16,6 +17,7 @@ import {
 } from './service';
 
 Mongoose.Promise = global.Promise;
+Aigle.mixin(_);
 
 const categoryIds = [];
 const freqIds = [];
@@ -26,23 +28,25 @@ const todoIds = [];
 const habitIds = [];
 
 casual.seed(123);
-const mongo = Mongoose.connect("mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/progressPlanner", () =>{
+const mongo = Mongoose.connect("mongodb://localhost:27017/progressPlanner", async () =>{
   Mongoose.connection.db.dropDatabase();
-  generateLookUpTables()
-  setTimeout(() =>{
-    generateGoals()
-    setTimeout(() => { generateEntitySeedData() }, 8000)
-    setTimeout(() => { generateLedgers() }, 1000)
-    }, 1000);
+  await generateLookUpTables();
+  console.log(" Created lookup values");
+  await generateGoals();
+  console.log(" Created Goals");
+  await generateEntitySeedData();
+  console.log(" Created Entities");
+  await generateLedgers();
+  console.log(" Created leadgers");
 });
 
-const generateLookUpTables = () => {
+const generateLookUpTables = async () => {
   // Generate seed data
   const CategoryList = ['Health and fitness', 'Intellectual', 'Spritiual',
     'Relationships', 'Financial', 'Career', 'Parenting', 'Social' ];
   // Generate Categories
-  _.times(10, () => {
-    createCategory({
+  await Aigle.times(10, () => {
+    const category = createCategory({
       title: casual.random_element(CategoryList),
       description:casual.description
       })
@@ -50,7 +54,7 @@ const generateLookUpTables = () => {
   })
 
   // Generate Frequencies
-   _.times(10, () => {
+   await Aigle.times(10, () => {
     createFrequency({
       monday: casual.boolean,
       tuesday: casual.boolean,
@@ -63,14 +67,14 @@ const generateLookUpTables = () => {
   })
 
   // Generage Tags
-  _.times(10, () => createTag({ name: casual.word })
+  await Aigle.times(10, () => createTag({ name: casual.word })
     .then((tag)=> tagIds.push(tag.id)))
 
 }
 
-const generateGoals = () => {
+const generateGoals = async () => {
   // Generate Goals
-   _.times(10, () => {
+   await Aigle.times(10, () => {
     createGoal({
       title: casual.title,
       description: casual.description,
@@ -82,12 +86,12 @@ const generateGoals = () => {
   })
 }
 
-const generateEntitySeedData = () => {
+const generateEntitySeedData = async () => {
 
   const TaskType = ['RECURRING', 'ONETIME'];
   const Priority = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
   // Generate Tasks
-  _.times(10, () => {
+  await Aigle.times(10, () => {
     createTask({
       title: casual.title,
       description: casual.description,
@@ -104,7 +108,7 @@ const generateEntitySeedData = () => {
     }).then((task)=> taskIds.push(task.id))
   })
 
-  _.times(10, () => {
+  await Aigle.times(10, () => {
     createTodo({
       title: casual.title,
       userId: 1,
@@ -115,7 +119,7 @@ const generateEntitySeedData = () => {
     }).then((todo)=> todoIds.push(todo.id))
   })
 
-  return _.times(10, () => {
+  await Aigle.times(10, () => {
     createHabit({
       title: casual.title,
       description: casual.description,
@@ -134,11 +138,11 @@ const generateEntitySeedData = () => {
   })
 }
 
-const generateLedgers = () => {
+const generateLedgers = async () => {
   const Status = ['COMPLETE', 'NOT_DONE'];
   const DateRange = genDatePlusMinus(new Date());
 
-  _.times(10, () => {
+  await Aigle.times(10, () => {
     addToTaskLedger({
       taskId: casual.random_element(taskIds),
       status: casual.random_element(Status),
@@ -146,7 +150,7 @@ const generateLedgers = () => {
     })
   })
 
-  _.times(10, () => {
+  await Aigle.times(10, () => {
     addToTodoLedger({
       todoId: casual.random_element(todoIds),
       status: casual.random_element(Status),
@@ -154,7 +158,7 @@ const generateLedgers = () => {
     })
   })
 
-  _.times(10, () => {
+  await Aigle.times(10, () => {
     addToHabitLedger({
       habitId: casual.random_element(habitIds),
       status: casual.random_element(Status),
