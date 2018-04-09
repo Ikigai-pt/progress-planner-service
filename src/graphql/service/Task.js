@@ -11,7 +11,7 @@ const getAllTask = () => {
 }
 
 const getTaskById = (id) => {
-  return Task.find({_id: Mongoose.mongo.ObjectId(id)})
+  return Task.findOne({_id: Mongoose.mongo.ObjectId(id)})
 }
 
 // createTask(exampleTask).then((data)=> console.log(JSON.stringify(data)))

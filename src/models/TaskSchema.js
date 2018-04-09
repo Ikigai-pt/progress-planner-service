@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import {ENUM_PRIORITIES, ENUM_STATUS} from './constants';
+
 const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
@@ -6,10 +8,10 @@ const TaskSchema = new Schema({
   description: String,
   userId: Number,
   categoryId: String,
+  status: {type: String, enum: ENUM_STATUS, default: 'PLAN'},
   tags: [String],
-  type: {type: String, enum: ['RECURRING', 'ONETIME'], default: 'RECURRING'},
-  daysOfWeek: String,
-  priority: {type: String, enum: ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'], default: 'MEDIUM'},
+  daysOfWeekId: String,
+  priority: {type: String, enum: ENUM_PRIORITIES, default: 'MEDIUM'},
   goalId: String,
   startDate: Date,
   endDate: Date,

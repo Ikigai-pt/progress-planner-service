@@ -1,0 +1,54 @@
+type Todo {
+  id: String
+  title: String!
+  status: String
+  category: Category
+  tags: [Tag]
+  priority: String,
+  deadLine: Date!
+  createdAt: Date!
+  modifiedAt: Date!
+}
+
+type Query {
+  allTodos: [Todo]
+  todoById(id: String!): Todo
+}
+
+input CreateTodoInput {
+  title: String!
+  status: String
+  categoryId: String!
+  priority: String
+  tags: [String!]
+  priority: String,
+  deadLine: Date!
+}
+
+input UpdateTodoInput {
+  id: String!
+  title: String!
+  status: String
+  categoryId: String!
+  tags: [String!]
+  priority: String,
+  deadLine: Date!
+}
+
+input UpdateTodoPrioirtyInput {
+  id: String!
+  priority: String!
+}
+
+input UpdateTodoStatusInput {
+  id: String!
+  status: String!
+}
+
+type Mutation {
+  createTodo(todo: CreateTodoInput!): Todo
+#  updateTodoStatus(task: UpdateTodoStatusInput!): Todo
+#  updateTodoPriority(task: UpdateTodoPrioirtyInput!): Todo
+#  updateTodo(task: UpdateTodoInput): Todo
+}
+

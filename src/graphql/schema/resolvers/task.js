@@ -1,25 +1,22 @@
-import GraphQLDate from 'graphql-date';
+import { GraphQLDate } from 'graphql-iso-date';
 import {
-  getAllCategory,
-  getCategoryById,
   getTagById,
-  getGoalById,
   getFrequencyById,
+  getCategoryById,
   getAllTag,
   getAllFrequency,
   getAllTask,
-  getAllTodo,
+  getTaskById,
+  createTask,
 } from '../../service';
 
-const taskResolvers = {
+const taskResolver = {
   Date: GraphQLDate,
+
   Query: {
     allTasks(_, args) {
       const tasks = getAllTask();
       return tasks;
-    },
-    allCategories(_, args) {
-      return getAllCategory();
     },
     allTags(_, args) {
       return getAllTag();
@@ -27,25 +24,55 @@ const taskResolvers = {
     allFrequencies(_, args) {
       return getAllFrequency();
     },
-    categoryById(_, { id }) {
-      // getCategoryById(id).then((cat) => console.log(id+" data"+cat));
-      return getCategoryById(id);
-    }
+    taskById(_, { id }) {
+      return getTaskById(id);
+    },
+    tagById(_, { id }) {
+      return getTagById(id);
+    },
   },
+
   Task: {
     category(task) {
       return getCategoryById(task.categoryId)
     },
     tags(task) {
+      console.log(" tags "+task.tags)
       return task.tags.map((tag) => getTagById(tag))
     },
     daysOfWeek(task) {
-      return getFrequencyById(task.daysOfWeek)
+      return getFrequencyById(task.daysOfWeekId)
     },
     goal(task) {
       return getGoalById(task.goalId)
+    },
+  },
+
+  Mutation: {
+    createTask: (root, { task: {
+      title,
+      description,
+      categoryId,
+      tags,
+      daysOfWeekId,
+      priority,
+      goalId,
+      startDate,
+      endDate,
+    }}) => {
+      return createTask({
+      title,
+      description,
+      categoryId,
+      tags,
+      daysOfWeekId,
+      priority,
+      goalId,
+      startDate,
+      endDate,
+      })
     }
   }
 };
 
-export default taskResolvers;
+export default taskResolver;
