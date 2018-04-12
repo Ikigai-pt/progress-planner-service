@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import {Tag} from '../../models/TagSchema';
+import {User} from './models/TagSchema';
 
 const createTag = (tag) => {
   return Tag(tag).save();

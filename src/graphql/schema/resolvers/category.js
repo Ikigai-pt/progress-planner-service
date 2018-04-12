@@ -3,7 +3,7 @@ import {
   getAllCategory,
   getCategoryById,
   createCategory,
-} from '../../service';
+} from 'service';
 
 const cateogryResolver = {
   Date: GraphQLDate,

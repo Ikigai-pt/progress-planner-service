@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import {Category} from '../../models/CategorySchema';
+import {Category} from './models/CategorySchema';
 
 const createCategory = (category) => {
   return Category(category).save();

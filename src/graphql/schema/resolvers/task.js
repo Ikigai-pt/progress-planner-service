@@ -8,7 +8,7 @@ import {
   getAllTask,
   getTaskById,
   createTask,
-} from '../../service';
+} from 'service';
 
 const taskResolver = {
   Date: GraphQLDate,

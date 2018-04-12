@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import {Frequency} from '../../models/FrequencySchema';
+import {Frequency} from './models/FrequencySchema';
 
 const createFrequency = (frequency) => {
   return Frequency(frequency).save();

@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import { Goal } from '../../models/GoalSchema';
+import { Goal } from './models/GoalSchema';
 
 const createGoal = (newGoal) => {
   const goal = Goal(newGoal);

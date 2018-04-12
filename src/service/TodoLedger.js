@@ -1,4 +1,4 @@
-import {TodoLedger} from '../../models/TodoSchema';
+import {TodoLedger} from './models/TodoSchema';
 
 const addToTodoLedger = (newTodo) => {
   const taskLedger = TodoLedger(newTodo);

@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import {Task} from '../../models/TaskSchema';
+import {Task} from './models/TaskSchema';
 
 const createTask = (newTask) => {
   const task = Task(newTask);

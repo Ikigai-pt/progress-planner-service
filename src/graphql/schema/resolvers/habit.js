@@ -6,7 +6,7 @@ import {
   getHabitById,
   getAllHabit,
   createHabit,
-} from '../../service';
+} from 'service';
 
 const habitResolver = {
   Date: GraphQLDate,

@@ -5,7 +5,7 @@ import {
   createTodo,
   getTagById,
   getCategoryById,
-} from '../../service';
+} from 'service';
 
 const todoResolver = {
   Date: GraphQLDate,

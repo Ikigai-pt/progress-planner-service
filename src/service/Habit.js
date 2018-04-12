@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import {Habit} from '../../models/HabitSchema';
+import {Habit} from './models/HabitSchema';
 
 const createHabit = (habit) => {
   return Habit(habit).save();

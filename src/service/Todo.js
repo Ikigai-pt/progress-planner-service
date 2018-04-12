@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import {Todo} from '../../models/TodoSchema';
+import {Todo} from './models/TodoSchema';
 
 const createTodo = (newTodo) => {
   const task = Todo(newTodo);

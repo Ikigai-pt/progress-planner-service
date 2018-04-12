@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import {HabitLedger} from '../../models/HabitSchema';
+import {HabitLedger} from './models/HabitSchema';
 
 const addToHabitLedger = (newHabit) => {
   const taskLedger = HabitLedger(newHabit);

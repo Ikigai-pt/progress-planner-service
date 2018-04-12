@@ -4,7 +4,7 @@ import {
   getGoalById,
   createGoal,
   getCategoryById,
-} from '../../service';
+} from 'service';
 
 const goalResolver = {
   Date: GraphQLDate,
